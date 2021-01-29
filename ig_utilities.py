@@ -183,7 +183,7 @@ def multi_ig_indicator(directory = "./main_data", show_plot = False,
 
 
 	intresting = []
-
+	datas_of_inpulses = []
 	for name in file_names:
 	    path = os.path.join(directory, name)
 	    data = pd.read_csv(path, sep = "\t", index_col = "Data")
@@ -193,4 +193,5 @@ def multi_ig_indicator(directory = "./main_data", show_plot = False,
 	        print(f"signal for: {name[:-4]} at {dates_of_inpulse}")
 	        plot_last_year(data, name[:-4], save = True, show_plot = show_plot)
 	        intresting.append(name[:-4])
-	return(intresting)
+	        datas_of_inpulses.append(dates_of_inpulse) 
+	return(intresting, datas_of_inpulses)

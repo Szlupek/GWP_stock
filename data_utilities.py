@@ -85,7 +85,7 @@ def download_multi_stock(names, save_stats = False, wait = True, save_dir = "sto
             
             ### wait random time 
             if wait:
-                sleep(randint(10,30)/20)
+                sleep(randint(1,5)/10)
         except:
             pass
         

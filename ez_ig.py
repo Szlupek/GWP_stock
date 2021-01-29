@@ -19,15 +19,16 @@ def main():
 	names = np.array(names)
 
 	### get fresh data
+	print("Downloading fresh stock data")
 	download_multi_stock(names, save_stats = False, save_dir = "main_data")
 
 	### run ig;
-	interesting_stock = multi_ig_indicator()
+	interesting_stock, dates = multi_ig_indicator()
 
 	### save results 
 	with open('results.txt', 'w') as f:
-		for stock in interesting_stock:
-			f.write(f"{stock}\n")
+		for ii, stock in enumerate(interesting_stock):
+			f.write(f"{stock} at {dates[ii]}\n")
 
 if __name__ == '__main__':
-	main()
+	main()	
