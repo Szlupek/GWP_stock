@@ -36,23 +36,29 @@ def download_stock_data(name, interval = "d", skip = "1111111", save = False, sa
     data = requests.get(quiry).content
     data_frame = pd.read_csv(io.StringIO(data.decode('utf-8')))
     
-    if save: 
-        directory = save_dir
-        file_name = str(name).upper()  + ".tsv"
-        path = os.path.join(directory, file_name)
-        
-        cwd = os.getcwd()
-        dir_path = os.path.join(cwd,directory)
+
+    try: 
+        data_frame["Data"]
+        if save: 
+            directory = save_dir
+            file_name = str(name).upper()  + ".tsv"
+            path = os.path.join(directory, file_name)
+            
+            cwd = os.getcwd()
+            dir_path = os.path.join(cwd,directory)
 
 
-        ### try to create directory 
-        try:
-            os.makedirs(dir_path)
-        except: 
-            pass 
+            ### try to create directory 
+            try:
+                os.makedirs(dir_path)
+            except: 
+                pass 
 
-        data_frame.to_csv(path, sep = "\t" )
-    return data_frame
+            data_frame.to_csv(path, sep = "\t" )
+        return data_frame
+    except: 
+        print(f"{name} is broken!!! Check it")
+        return 0
     
 def get_stock_names(file = "main_names.csv", directory = "names_data"):
     """
@@ -73,12 +79,15 @@ def download_multi_stock(names, save_stats = False, wait = True, save_dir = "sto
         
     for name in tqdm(names):
         stock = download_stock_data(name, save = True, save_dir = save_dir)
-        stats["Data"].append(stock["Data"][0])
-        stats["Name"].append(name)
-        
-        ### wait random time 
-        if wait:
-            sleep(randint(10,30)/20)
+        try:
+            stats["Data"].append(stock["Data"][0])
+            stats["Name"].append(name)
+            
+            ### wait random time 
+            if wait:
+                sleep(randint(10,30)/20)
+        except:
+            pass
         
     stats = pd.DataFrame(stats) 
     

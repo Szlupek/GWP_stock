@@ -3,3 +3,6 @@
 **/NC_data/**
 **/main_data/**
 **/__pycache__/**
+**/raw_IF_data/**
+**/IF_data/**
+

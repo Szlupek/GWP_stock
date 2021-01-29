@@ -13,6 +13,8 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
+import os
+import pandas as pd 
 
 def get_long_positions_indexes(df, window_size = 10, n_sigma = 2, signal_type = "rr"):
 	"""
@@ -169,3 +171,26 @@ def ig_indicator(df, window_size = 30, n_sigma = 2, signal_type = "rr", passed_d
     return  inpuls, dates_of_inpulse
 
 #ig_indicator(data, passed_days_to_check = 1)
+
+def multi_ig_indicator(directory = "./main_data", show_plot = False,
+					window_size = 90, n_sigma = 2,
+					short = False, passed_days_to_check = 0):
+	"""
+	Description needed 
+	"""
+
+	file_names = os.listdir(directory)
+
+
+	intresting = []
+
+	for name in file_names:
+	    path = os.path.join(directory, name)
+	    data = pd.read_csv(path, sep = "\t", index_col = "Data")
+	    inpuls, dates_of_inpulse = ig_indicator(data, window_size = window_size, n_sigma = n_sigma, 
+	                                            short = short, passed_days_to_check = passed_days_to_check)
+	    if inpuls:
+	        print(f"signal for: {name[:-4]} at {dates_of_inpulse}")
+	        plot_last_year(data, name[:-4], save = True, show_plot = show_plot)
+	        intresting.append(name[:-4])
+	return(intresting)
