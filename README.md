@@ -1,6 +1,6 @@
 # GWP_stock
 
-###TODO: upddating stocks names and python requirements 
+### TODO: upddating stocks names and python requirements 
 
 #Simple framework for colecting and analysing stock data from Polish GPW. 
 

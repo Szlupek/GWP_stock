@@ -34,10 +34,12 @@ def download_stock_data(name, interval = "d", skip = "1111111", save = False, sa
     quiry = adress + "?" + quiry_name + "&" + quiry_interval + "&" + quiry_skip
     
     data = requests.get(quiry).content
-    data_frame = pd.read_csv(io.StringIO(data.decode('utf-8')))
+    
+    
     
 
-    try: 
+    try:
+        data_frame = pd.read_csv(io.StringIO(data.decode('utf-8'))) 
         data_frame["Data"]
         if save: 
             directory = save_dir
@@ -85,7 +87,7 @@ def download_multi_stock(names, save_stats = False, wait = True, save_dir = "sto
             
             ### wait random time 
             if wait:
-                sleep(randint(1,5)/10)
+                sleep(randint(10,50)/100)
         except:
             pass
         
