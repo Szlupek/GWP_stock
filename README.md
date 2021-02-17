@@ -1,8 +1,8 @@
-# GWP_stock
+# GPW_stock
 
 ### TODO: upddating stocks names and python requirements 
 
-#Simple framework for colecting and analysing stock data from Polish GPW. 
+# Simple framework for colecting and analysing stock data from Polish GPW. 
 
 - Folder names_data contains files with names of polish stocks.
 - Stock_data.ipynb is a notebook allowing for gathering stock data 

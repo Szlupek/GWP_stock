@@ -18,6 +18,21 @@ from random import randint
 from time import sleep
 from tqdm import tqdm 
 
+def recurent_request(quiry, max_depth = 1):
+    """
+    recurently repeats request in case of fail 
+    """
+    try: 
+        data = requests.get(quiry).content
+    except:
+        max_depth -= 1
+        
+        if max_depth <= 0:
+            print("request fail!!!")
+            return None
+        else:
+            data = recurent_request(quiry, max_depth = max_depth)
+    return data
 
 def download_stock_data(name, interval = "d", skip = "1111111", save = False, save_dir = "stock_data"):
     """
@@ -33,7 +48,7 @@ def download_stock_data(name, interval = "d", skip = "1111111", save = False, sa
     quiry_skip = "o=" + str(skip)
     quiry = adress + "?" + quiry_name + "&" + quiry_interval + "&" + quiry_skip
     
-    data = requests.get(quiry).content
+    data = recurent_request(quiry, 5)#requests.get(quiry).content
     
     
     
